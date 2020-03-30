@@ -88,6 +88,11 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+      if (empty($post)) {
+        abort('404');
+      }
+      $post->delete();
+
+      return redirect()->route('adminposts.index');
     }
 }
