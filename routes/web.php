@@ -20,6 +20,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/posts', 'PostController@index')->name('posts.index');
+Route::get('/posts/show/{{post}}', 'PostController@show')->name('posts.show');
 
 Route::name('admin')->prefix('admin')
 ->namespace('Admin')
