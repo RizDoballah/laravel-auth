@@ -20,7 +20,12 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/posts', 'PostController@index')->name('posts.index');
-Route::get('/posts/show/{{post}}', 'PostController@show')->name('posts.show');
+
+Route::get('/posts/{post}', 'PostController@show')->name('posts.show');
+
+// Route::get('/comments/create', 'CommentController@create')->name('comments.create');
+
+Route::post('/comments/create', 'CommentController@store')->name('comments.store');
 
 Route::name('admin')->prefix('admin')
 ->namespace('Admin')
