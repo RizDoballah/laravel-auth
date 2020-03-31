@@ -1,8 +1,7 @@
 @extends('layouts.app')
 @section('content')
-  <div class="">
+  <div class="btn-group ml-3 mb-3">
     <a class="btn btn-primary" href="{{route('adminposts.create')}}">Crea un nuovo post</a>
-
   </div>
   <table class="table">
     <thead>
@@ -24,7 +23,7 @@
           <td>{{$post->created_at}}</td>
           <td>{{$post->updated_at}}</td>
           <td><a class="btn btn-primary" href="{{route('adminposts.show', $post->slug)}}">View</a></td>
-          <td>Edit</td>
+          <td><a class="btn btn-primary" href="{{route('adminposts.edit', $post->slug)}}">Edit</a> </td>
           <td>
             <form class="" action="{{route('adminposts.destroy',$post)}}" method="post">
               @csrf
