@@ -1,46 +1,32 @@
 @extends('layouts.app')
 @section('content')
 
-  <table class="table">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Title</th>
-        <th>User Id</th>
-        <th>Body</th>
-        <th>Comments</th>
-        <th>Created At</th>
-        <th>Updated At</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td>{{$post->id}}</td>
-          <td>{{$post->title}}</td>
-          <td>{{$post->user_id}}</td>
-          <td>{{$post->body}}</td>
-          <td>{{$post->created_at}}</td>
-          <td>{{$post->updated_at}}</td>
-        </tr>
-    </tbody>
-  </table>
-  <div class="row">
-    <div class="col-12 ml-3">
-      <h3>Comments</h3>
-      @forelse ($post->comments as $comment)
-        <h5>{{$comment->name}}</h5>
-        <small>{{$comment->email}}</small>
-        <div>
-          {{$comment->body}}
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h2>{{$post->title}}</h2>
+        <span>by: {{$post->user->name}}</span>
+        <div class="mt-3">
+          {{$post->body}}
         </div>
-      @empty
-        <p>No Comments</p>
-      @endforelse
+      </div>
     </div>
-  </div>
-
+    <div class="row">
+      <div class="col-12 ">
+        <h3 class="mt-4">Comments</h3>
+        @forelse ($post->comments as $comment)
+          <h5 class="mt-4">{{$comment->name}}</h5>
+          <small>{{$comment->email}}</small>
+          <div class="mt-3">
+            {{$comment->body}}
+          </div>
+        @empty
+          <p>No Comments</p>
+        @endforelse
+      </div>
+    </div>
     <div class="row mt-4">
-      <div class="col-12 ml-3">
+      <div class="col-12">
         <h2>Insert a comment</h2>
         <div class="container">
           <form class="" action="{{route('comments.store')}}" method="post">
@@ -64,7 +50,11 @@
         </div>
       </div>
 
-        </div>
+    </div>
+
+  </div>
+
+
 
 
 
