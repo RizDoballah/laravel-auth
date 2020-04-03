@@ -11,6 +11,8 @@ class Post extends Model
       'title',
       'body',
       'slug',
+      'published',
+      'image_path',
       'updated_at'
     ];
 
