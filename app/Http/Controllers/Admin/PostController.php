@@ -19,6 +19,7 @@ class PostController extends Controller
   public function __construct()
   {
     $this->validateRules = [
+      'tags.*' => 'exists:tags,id',
       'title'=> 'required|string|max:255',
       'body'=> 'required|string',
       'published'=> 'required|boolean',
@@ -139,18 +140,17 @@ class PostController extends Controller
            abort(404);
        }
 
-       $request->validate($this->validateRules);
        $data = $request->all();
+       $request->validate($this->validateRules);
 
-       $post->title = $data['title'];
-       $post->body = $data['body'];
-       $post->slug = Str::finish(Str::slug($post->title), rand(1, 1000000));
-       $post->updated_at = Carbon::now();
+       if(!empty($data['image_path'])) {
+         $data['image_path'] = Storage::disk('public')->put('images', $data['image_path']);
+        }
 
-       $updated = $post->update();
+       $updated = $post->update($data);
 
        if (!$updated) {
-           return redirect()->back();
+           return redirect()->back()->withinput();
        }
 
        $tags = $data['tags'];
