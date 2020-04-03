@@ -22,7 +22,7 @@ class PostController extends Controller
       'title'=> 'required|string|max:255',
       'body'=> 'required|string',
       'published'=> 'required|boolean',
-      'image_path'=>'image'
+      'image_path'=>'nullable|image'
     ];
   }
   //solo admin
@@ -62,13 +62,20 @@ class PostController extends Controller
 
         $data = $request->all();
         $newPost = new Post;
-        $path = Storage::disk('public')->put('images', $data['image_path']);
+
+        if(empty($data['image_path'])) {
+           $data['image_path'] = null;
+       } else {
+           $data['image_path'] = Storage::disk('public')->put('images', $data['image_path']);
+       }
+
 
         $newPost->title = $data['title'];
         $newPost->body = $data['body'];
         $newPost->user_id = $idUser;
         $newPost->slug = Str::finish(Str::slug($newPost->title), rand(1, 1000));
-        $newPost->image_path = $path;
+        $newPost->published = $data['published'];
+        $newPost->image_path = $data['image_path'];
 
         $saved = $newPost->save();
         if (!$saved) {

@@ -30,7 +30,7 @@
          </select>
         </div>
         <div class="form-group">
-         <input type="file" name="path_image" accept="image/*">
+         <input type="file" name="image_path" accept="image/*">
         </div>
         {{-- <input type="hidden" name="user_id" value="{{Auth::id()}}"> --}}
         <button class="btn btn-success" type="submit" name="button">Salva</button>
